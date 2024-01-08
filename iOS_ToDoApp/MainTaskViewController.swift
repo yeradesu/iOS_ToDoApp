@@ -212,24 +212,19 @@ extension MainTaskViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // Создаем действие редактирования
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler) in
-            // Обработка нажатия на кнопку редактирования
            self?.pressEditTask(at: indexPath)
            completionHandler(true)
         }
         editAction.backgroundColor = .blue
 
-        // Создаем действие удаления
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
-           // Обработка нажатия на кнопку удаления
             self?.tasks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             completionHandler(true)
             self?.saveTasks()
         }
 
-        // Возвращаем конфигурацию с обеими кнопками
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }
