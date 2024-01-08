@@ -24,6 +24,7 @@ class CustomTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // PRIVATE FUNCTION
     private func configureCell() {
         addSubview(circleImage)
         addSubview(checkmark)
@@ -58,6 +59,7 @@ class CustomTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(constraints)
     }
     
+    // PUBLIC FUNCTIONS
     func toggleImage() {
         isChecked = !isChecked
         circleImage.image = isChecked ? UIImage(systemName: "checkmark.circle") : UIImage(systemName: "circle")

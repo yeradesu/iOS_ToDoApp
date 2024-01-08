@@ -2,8 +2,9 @@ import UIKit
 
 class AddTaskViewController: UIViewController {
     
-    var onTaskAdded: ((AddTask) -> Void)?
+    var onTaskAdded: ((AddTask) -> Void)? // closure
     
+    // properties with imediate configurations. idk how to comment that diffently
     lazy var navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +43,7 @@ class AddTaskViewController: UIViewController {
         return textView
     }()
     
+    // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -49,6 +51,7 @@ class AddTaskViewController: UIViewController {
         setupConstraints()
     }
     
+    // MARK: -PRIVATE FUNCTIONS
     private func setupViews() {
         view.addSubview(navigationBar)
         view.addSubview(titleTextView)

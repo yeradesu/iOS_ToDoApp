@@ -10,9 +10,10 @@ class MainTaskViewController: UIViewController {
     var editTaskButton =    UIButton()
     var infoLabel =         UILabel()
     
-    // MARK: PROPERTIES
-    var array: [AddTask] = []
+    // MARK: PROPERTY
+    var tasks: [AddTask] = []
 
+    // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -25,8 +26,9 @@ class MainTaskViewController: UIViewController {
         setCornerRadius()
     }
     
+    // MARK: - PUBLIC FUNCTIONS
     func saveTasks() {
-        if let encodedData = try? JSONEncoder().encode(array) {
+        if let encodedData = try? JSONEncoder().encode(tasks) {
             UserDefaults.standard.set(encodedData, forKey: "tasks")
         }
     }
@@ -34,17 +36,18 @@ class MainTaskViewController: UIViewController {
    func loadTasks() {
         if let savedTasks = UserDefaults.standard.object(forKey: "tasks") as? Data {
             if let decodedTasks = try? JSONDecoder().decode([AddTask].self, from: savedTasks) {
-               array = decodedTasks
+                tasks = decodedTasks
             }
         }
    }
     
     func toggleCheckmark(at indexPath: IndexPath) {
-        array[indexPath.row].isChecked.toggle() // переключает состояние
+        tasks[indexPath.row].isChecked.toggle() // переключает состояние
         saveTasks() // сохраняет обновленный массив
         tableView.reloadRows(at: [indexPath], with: .automatic) // обновляет ячейку
     }
     
+    // MARK: PRIVATE FUNCTION
     private func configureUI() {
         view.backgroundColor = .white
         configureButtons()
@@ -139,17 +142,17 @@ class MainTaskViewController: UIViewController {
         editTaskButton.addTarget(self, action: #selector(editTask), for: .touchUpInside)
     }
     
-    @objc func addTask() {
+    @objc private func addTask() {
         let vc = AddTaskViewController()
         vc.onTaskAdded = { [weak self] newTask in
-                self?.array.append(newTask)
+                self?.tasks.append(newTask)
                 self?.tableView.reloadData()
         }
         saveTasks()
         self.present(vc, animated: true)
     }
     
-    @objc func editTask() {
+    @objc private func editTask() {
         tableView.setEditing(!tableView.isEditing, animated: true)
         
         if addTaskButton.isEnabled == true {
@@ -160,13 +163,13 @@ class MainTaskViewController: UIViewController {
         saveTasks()
     }
     
-    func pressEditTask(at indexPath: IndexPath) {
-        let taskToEdit = array[indexPath.row]
+    private func pressEditTask(at indexPath: IndexPath) {
+        let taskToEdit = tasks[indexPath.row]
         let editVC = AddTaskViewController()
         editVC.titleTextView.text = taskToEdit.taskTitle
         editVC.itemsTextView.text = taskToEdit.taskDetail
         editVC.onTaskAdded = { [weak self] updatedTask in
-            self?.array[indexPath.row] = updatedTask
+            self?.tasks[indexPath.row] = updatedTask
             self?.saveTasks()
             self?.tableView.reloadData()
         }
@@ -174,6 +177,7 @@ class MainTaskViewController: UIViewController {
     }
 }
 
+// MARK: - TABLEVIEW DELEGATE AND DATASOURCE
 extension MainTaskViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -185,7 +189,7 @@ extension MainTaskViewController: UITableViewDelegate {
 extension MainTaskViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        array.count
+        tasks.count
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -193,15 +197,15 @@ extension MainTaskViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let movedObject = self.array[sourceIndexPath.row]
-        array.remove(at: sourceIndexPath.row)
-        array.insert(movedObject, at: destinationIndexPath.row)
+        let movedObject = self.tasks[sourceIndexPath.row]
+        tasks.remove(at: sourceIndexPath.row)
+        tasks.insert(movedObject, at: destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomTableViewCell
         
-        let task = array[indexPath.row]
+        let task = tasks[indexPath.row]
         cell.configureWithTask(task)
         
         return cell
@@ -219,7 +223,7 @@ extension MainTaskViewController: UITableViewDataSource {
         // Создаем действие удаления
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
            // Обработка нажатия на кнопку удаления
-            self?.array.remove(at: indexPath.row)
+            self?.tasks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             completionHandler(true)
             self?.saveTasks()
