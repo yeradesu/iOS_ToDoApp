@@ -2,39 +2,39 @@
 
 <img width="312" alt="Screenshot 2024-01-08 at 2 17 52 AM" src="https://github.com/yeradesu/iOS_ToDoApp/assets/154603486/f3f25f09-6364-4fab-85fa-9b3cb28b934d">
 
-ToDoApp - это простое iOS приложение для управления задачами. Приложение позволяет пользователям добавлять, редактировать и удалять задачи, а также отмечать их как выполненные.
+ToDoApp is a simple iOS task management application. It allows users to add, edit, and delete tasks, as well as mark them as completed.
 
-## Особенности
+## Features
 
-- Добавление новых задач.
-- Редактирование существующих задач.
-- Удаление задач.
-- Отметка задач как выполненных.
-- Персистентное хранение задач между сессиями приложения.
+- Adding new tasks.
+- Editing existing tasks.
+- Deleting tasks.
+- Marking tasks as completed.
+- Persistent storage of tasks between app sessions.
 
-## Технологии
+## Technologies
 
 - Swift
 - UIKit
 
-## Установка
+## Installation
 
-Чтобы запустить ToDoApp на вашем устройстве, вам необходимо:
+To run ToDoApp on your device, you need to:
 
-1. Клонировать репозиторий проекта.
-2. Открыть проект в Xcode.
-3. Запустить проект на симуляторе или реальном устройстве.
+1. Clone the project repository.
+2. Open the project in Xcode.
+3. Run the project on a simulator or a real device.
 
-## Использование
+## Usage
 
-После запуска приложения вы можете:
+After launching the application, you can:
 
-- Нажать на кнопку "+" для добавления новой задачи.
-- Свайпнуть влево по задаче для доступа к функциям редактирования и удаления.
-- Нажать на задачу для отметки ее как выполненной.
+- Tap the "+" button to add a new task.
+- Swipe left on a task to access editing and deleting functions.
+- Tap on a task to mark it as completed.
 
 
-## Контакты
+## Contacts
 
 mail: ady.feb@icloud.com 
 github: @yeradesu
