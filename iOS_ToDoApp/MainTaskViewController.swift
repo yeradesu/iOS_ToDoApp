@@ -42,9 +42,9 @@ class MainTaskViewController: UIViewController {
    }
     
     func toggleCheckmark(at indexPath: IndexPath) {
-        tasks[indexPath.row].isChecked.toggle() // переключает состояние
-        saveTasks() // сохраняет обновленный массив
-        tableView.reloadRows(at: [indexPath], with: .automatic) // обновляет ячейку
+        tasks[indexPath.row].isChecked.toggle() // changing the state
+        saveTasks() // saving updated array
+        tableView.reloadRows(at: [indexPath], with: .automatic) // updating cells
     }
     
     // MARK: PRIVATE FUNCTION
